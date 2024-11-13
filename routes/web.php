@@ -43,3 +43,5 @@ Route::middleware('auth')->group(function () {
     // Rota para logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/transacoes/relatorio', [TransactionController::class, 'generatePdf'])->name('transactions.generatePdf');
