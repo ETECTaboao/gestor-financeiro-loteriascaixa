@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transações</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container mt-4">
@@ -18,6 +19,13 @@
                 {{ session('status') }}
             </div>
         @endif
+
+        <!-- Exibir o total gasto, total de ganhos e dinheiro restante no mês -->
+        <div class="mb-3">
+            <h4>Total Gasto no Mês: <span class="badge bg-danger">R$ {{ number_format($totalGasto, 2, ',', '.') }}</span></h4>
+            <h4>Total de Ganhos no Mês: <span class="badge bg-success">R$ {{ number_format($totalGanho, 2, ',', '.') }}</span></h4>
+            <h4>Dinheiro Restante: <span class="badge bg-primary">R$ {{ number_format($dinheiroRestante, 2, ',', '.') }}</span></h4>
+        </div>
 
         <!-- Tabela de transações -->
         <table class="table table-bordered">
@@ -57,12 +65,18 @@
             </tbody>
         </table>
 
+        <!-- Link para gerar o PDF -->
+        <a href="{{ route('transactions.generatePdf') }}" class="btn btn-primary mb-3">Gerar Relatório em PDF</a>
+
+
         <!-- Botão de logout -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-secondary mt-3">Sair</button>
         </form>
     </div>
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
