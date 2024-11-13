@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CurrencyController;
+
 
 // Rota para a página de login
 Route::get('login', function () {
@@ -45,3 +47,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/transacoes/relatorio', [TransactionController::class, 'generatePdf'])->name('transactions.generatePdf');
+
+Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+

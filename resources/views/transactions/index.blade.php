@@ -20,6 +20,33 @@
             </div>
         @endif
 
+        <!-- Filtros -->
+        <form method="GET" action="{{ route('transactions.index') }}" class="mb-3">
+            <div class="row">
+                <!-- Filtro de tipo de transação -->
+                <div class="col-md-3">
+                    <select name="type" class="form-select">
+                        <option value="">Selecione o Tipo</option>
+                        <option value="gasto" {{ request()->type == 'gasto' ? 'selected' : '' }}>Gasto</option>
+                        <option value="ganho" {{ request()->type == 'ganho' ? 'selected' : '' }}>Ganho</option>
+                    </select>
+                </div>
+                <!-- Filtro de categoria -->
+                <div class="col-md-3">
+                    <input type="text" name="category" class="form-control" placeholder="Categoria" value="{{ request()->category }}">
+                </div>
+                <!-- Filtro de data inicial -->
+                <div class="col-md-3">
+                    <input type="date" name="start_date" class="form-control" value="{{ request()->start_date }}">
+                </div>
+                <!-- Filtro de data final -->
+                <div class="col-md-3">
+                    <input type="date" name="end_date" class="form-control" value="{{ request()->end_date }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+        </form>
+
         <!-- Exibir o total gasto, total de ganhos e dinheiro restante no mês -->
         <div class="mb-3">
             <h4>Total Gasto no Mês: <span class="badge bg-danger">R$ {{ number_format($totalGasto, 2, ',', '.') }}</span></h4>
@@ -68,15 +95,12 @@
         <!-- Link para gerar o PDF -->
         <a href="{{ route('transactions.generatePdf') }}" class="btn btn-primary mb-3">Gerar Relatório em PDF</a>
 
-
         <!-- Botão de logout -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-secondary mt-3">Sair</button>
         </form>
     </div>
-
-    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

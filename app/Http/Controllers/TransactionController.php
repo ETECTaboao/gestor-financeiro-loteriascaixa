@@ -9,33 +9,52 @@ use App\Http\Requests\UpdateTransactionRequest;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Http\Request;
+
 
 class TransactionController extends Controller
 {
     // Exibe a lista de transações
-    public function index()
+    public function index(Request $request)
     {
-       // Obter o mês atual
+        // Definindo o mês atual
         $currentMonth = Carbon::now()->month;
 
-        // Calcular o total gasto no mês
-        $totalGasto = Transaction::where('user_id', Auth::id())
-            ->where('type', 'gasto')
-            ->whereMonth('created_at', $currentMonth)
-            ->sum('amount');
+        // Obter os parâmetros de filtro, caso existam
+        $type = $request->get('type'); // tipo de transação (gasto/ganho)
+        $category = $request->get('category'); // categoria da transação
+        $startDate = $request->get('start_date'); // data de início
+        $endDate = $request->get('end_date'); // data de fim
 
-        // Calcular o total de ganhos no mês
-        $totalGanho = Transaction::where('user_id', Auth::id())
-            ->where('type', 'ganho')
-            ->whereMonth('created_at', $currentMonth)
-            ->sum('amount');
+        // Query base para transações do usuário logado
+        $query = Transaction::where('user_id', Auth::id());
 
-        // Calcular o dinheiro restante (ganhos - gastos)
+        // Aplicando os filtros
+        if ($type) {
+            $query->where('type', $type);
+        }
+
+        if ($category) {
+            $query->where('category', 'like', "%$category%");
+        }
+
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', Carbon::parse($startDate));
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', Carbon::parse($endDate));
+        }
+
+        // Obter as transações filtradas
+        $transactions = $query->get();
+
+        // Calcular os totais de gasto e ganho com os filtros aplicados
+        $totalGasto = $transactions->where('type', 'gasto')->sum('amount');
+        $totalGanho = $transactions->where('type', 'ganho')->sum('amount');
         $dinheiroRestante = $totalGanho - $totalGasto;
 
-        // Buscar as transações do usuário
-        $transactions = Transaction::where('user_id', Auth::id())->get();
-
+        // Passar os dados para a view
         return view('transactions.index', compact('transactions', 'totalGasto', 'totalGanho', 'dinheiroRestante'));
     }
 
