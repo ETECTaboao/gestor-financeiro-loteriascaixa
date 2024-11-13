@@ -9,14 +9,18 @@ use App\Http\Requests\UpdateTransactionRequest;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 
+=======
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5
 
 class TransactionController extends Controller
 {
     // Exibe a lista de transações
     public function index(Request $request)
     {
+<<<<<<< HEAD
         // Definindo o mês atual
         $currentMonth = Carbon::now()->month;
 
@@ -55,6 +59,29 @@ class TransactionController extends Controller
         $dinheiroRestante = $totalGanho - $totalGasto;
 
         // Passar os dados para a view
+=======
+       // Obter o mês atual
+        $currentMonth = Carbon::now()->month;
+
+        // Calcular o total gasto no mês
+        $totalGasto = Transaction::where('user_id', Auth::id())
+            ->where('type', 'gasto')
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('amount');
+
+        // Calcular o total de ganhos no mês
+        $totalGanho = Transaction::where('user_id', Auth::id())
+            ->where('type', 'ganho')
+            ->whereMonth('created_at', $currentMonth)
+            ->sum('amount');
+
+        // Calcular o dinheiro restante (ganhos - gastos)
+        $dinheiroRestante = $totalGanho - $totalGasto;
+
+        // Buscar as transações do usuário
+        $transactions = Transaction::where('user_id', Auth::id())->get();
+
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5
         return view('transactions.index', compact('transactions', 'totalGasto', 'totalGanho', 'dinheiroRestante'));
     }
 

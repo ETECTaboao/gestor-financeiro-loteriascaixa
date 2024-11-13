@@ -46,7 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+<<<<<<< HEAD
 Route::get('/transacoes/relatorio', [TransactionController::class, 'generatePdf'])->name('transactions.generatePdf');
 
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
+=======
+Route::get('/transacoes/relatorio', [TransactionController::class, 'generatePdf'])->name('transactions.generatePdf');
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5

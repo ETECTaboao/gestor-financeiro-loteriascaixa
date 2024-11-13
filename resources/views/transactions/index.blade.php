@@ -20,6 +20,7 @@
             </div>
         @endif
 
+<<<<<<< HEAD
         <!-- Filtros -->
         <form method="GET" action="{{ route('transactions.index') }}" class="mb-3">
             <div class="row">
@@ -47,6 +48,8 @@
             <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
         </form>
 
+=======
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5
         <!-- Exibir o total gasto, total de ganhos e dinheiro restante no mês -->
         <div class="mb-3">
             <h4>Total Gasto no Mês: <span class="badge bg-danger">R$ {{ number_format($totalGasto, 2, ',', '.') }}</span></h4>
@@ -95,12 +98,18 @@
         <!-- Link para gerar o PDF -->
         <a href="{{ route('transactions.generatePdf') }}" class="btn btn-primary mb-3">Gerar Relatório em PDF</a>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5
         <!-- Botão de logout -->
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-secondary mt-3">Sair</button>
         </form>
     </div>
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

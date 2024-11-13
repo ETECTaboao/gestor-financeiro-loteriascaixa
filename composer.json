@@ -8,7 +8,10 @@
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
         "dompdf/dompdf": "^3.0",
+<<<<<<< HEAD
         "guzzlehttp/guzzle": "^7.9",
+=======
+>>>>>>> d2187f2a6e63054ca44c639dca86d1ca0b2131e5
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"
     },
