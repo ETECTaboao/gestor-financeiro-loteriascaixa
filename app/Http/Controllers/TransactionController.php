@@ -25,10 +25,10 @@ class TransactionController extends Controller
         $currentMonth = Carbon::now()->month;
 
         // Obter os parâmetros de filtro, caso existam
-        $type = $request->get('type'); // tipo de transação (gasto/ganho)
-        $category = $request->get('category'); // categoria da transação
-        $startDate = $request->get('start_date'); // data de início
-        $endDate = $request->get('end_date'); // data de fim
+        $type = $request->get('type'); 
+        $category = $request->get('category'); 
+        $startDate = $request->get('start_date');
+        $endDate = $request->get('end_date'); 
 
         // Query base para transações do usuário logado
         $query = Transaction::where('user_id', Auth::id());
@@ -58,7 +58,6 @@ class TransactionController extends Controller
         $totalGanho = $transactions->where('type', 'ganho')->sum('amount');
         $dinheiroRestante = $totalGanho - $totalGasto;
 
-        // Passar os dados para a view
 =======
        // Obter o mês atual
         $currentMonth = Carbon::now()->month;
@@ -170,7 +169,7 @@ public function generatePdf()
         $dompdf->loadHtml($html);
 
         // (Opcional) Define o tamanho da página
-        $dompdf->setPaper('A4', 'landscape'); // Pode ser 'portrait' ou 'landscape'
+        $dompdf->setPaper('A4', 'landscape'); 
 
         // Renderiza o PDF (no formato de renderização automático)
         $dompdf->render();
